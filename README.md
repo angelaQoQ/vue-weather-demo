@@ -2,4 +2,4 @@
 
 
 
-![weather](C:\Users\Administrator.WIN-SVERLJU8O1D\Desktop\weather.png)
+![weather](https://github.com/YoneyY/vue-weather-demo/blob/master/weather.png?raw=true)
