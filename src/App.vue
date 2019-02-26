@@ -3,29 +3,34 @@
       <el-amap vid="amap" :plugin="plugin" class="amap-demo" :center="center">
       </el-amap>
   <!-- 作者：于天源  -->
+      <h1>天气获取-Demo</h1>
       <div class="toolbar">
         <span v-if="loaded">
           location: lng = {{ lng }} lat = {{ lat }}
           <p>获取当前所在位置的经纬度</p>
         </span>
         <span v-else>正在定位</span>
-        <el-button @click="getWeather" type="success">获取天气</el-button>
-        <el-button @click="getWeather15" type="success">获取未来15天气</el-button>
+        <!-- 按钮 -->
+        <el-button @click="getWeather" type="primary">获取天气</el-button>
+        <el-button @click="getWeather15" type="primary">获取未来15天气</el-button>
+        <!-- info -->
+        <div>所在位置：{{result}}</div>
         <div>所在城市：{{cty.pname}}&nbsp;{{cty.name}}</div>
         <div>当前天气：{{sfc.banner}}</div>
-        <el-table :data="sfc.percent" border style="width: 100%">
-          <el-table-column prop="desc" label="每小时天气"  width="180">
+        <!-- 天气 -->
+        <el-table :data="sfc.percent" border style="width: 30%" >
+          <el-table-column prop="desc" label="每小时天气" align="center">
           </el-table-column>
         </el-table>
         <el-row>
           <h2>未来十五天天气</h2>
         </el-row>
-        <el-table :data="forecast" border style="width: 100%">
-          <el-table-column prop="conditionDay" label="天气状况"  width="180"></el-table-column>
-          <el-table-column prop="tempDay" label="白天最高温度"  width="180"></el-table-column>
-          <el-table-column prop="tempNight" label="夜间最高温度"  width="180"></el-table-column>
-          <el-table-column prop="predictDate" label="日期"  width="180"></el-table-column>
-          <el-table-column prop="updatetime" label="上次天气更新时间"  width="180"></el-table-column>
+        <el-table :data="forecast" border style="width: 50%">
+          <el-table-column prop="conditionDay" label="天气状况"  width="180" align="center"></el-table-column>
+          <el-table-column prop="tempDay" label="白天最高温度"  width="180" align="center"></el-table-column>
+          <el-table-column prop="tempNight" label="夜间最高温度"  width="180" align="center"></el-table-column>
+          <el-table-column prop="predictDate" label="日期"  width="180" align="center"></el-table-column>
+          <el-table-column prop="updatetime" label="上次天气更新时间" align="center"></el-table-column>
         </el-table>
       </div>
     </div>
@@ -51,6 +56,7 @@
           lng: 0,
           lat: 0,
           loaded: false,
+          result:'',
           plugin: [{
             pName: 'Geolocation',
             events: {
@@ -63,6 +69,7 @@
                     self.lat = result.position.lat;
                     self.center = [self.lng, self.lat];
                     self.loaded = true;
+                    self.result = result.formattedAddress;
                     self.$nextTick();
                   }
                 });
